@@ -1,22 +1,22 @@
-import React, { useState } from "react";
-import "./App.css";
-import RepositoryList from "./components/RepositoryList";
+import React, { useState } from 'react';
+import RepositoryList from './components/RepositoryList';
+import './App.css';
 
 function App() {
-  const [orgName, setOrgName] = useState("Netflix");
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const handleOrgNameChange = (event) => {
-    setOrgName(event.target.value);
+  const handleSearchQueryChange = (event) => {
+    setSearchQuery(event.target.value);
   };
 
   return (
     <div className="App">
       <h1>Github Repository Explorer</h1>
       <label>
-        Enter organization name:
-        <input type="text" value={orgName} onChange={handleOrgNameChange} />
+        Enter an organization name:
+        <input type="text" placeholder="Search for a repository" value={searchQuery} onChange={handleSearchQueryChange} />
       </label>
-      <RepositoryList orgName={orgName} />
+      <RepositoryList searchQuery={searchQuery} />
     </div>
   );
 }

@@ -1,41 +1,39 @@
-import React, { useEffect, useState } from "react";
-import CommitList from "./CommitList";
+import React, { useState, useEffect } from 'react';
 
-function RepositoryList({ orgName }) {
+function RepositoryList(props) {
   const [repositories, setRepositories] = useState([]);
-  const [selectedRepo, setSelectedRepo] = useState(null);
 
   useEffect(() => {
-    fetch(`https://api.github.com/orgs/${orgName}/repos?sort=stars&order=desc`)
-      .then((res) => res.json())
-      .then((data) => {
-        setRepositories(data);
-        setSelectedRepo(data[0]);
-      })
-      .catch((error) => console.error(error));
-  }, [orgName]);
+    const apiUrl = `https://api.github.com/orgs/Netflix/repos?sort=stars&direction=desc`;
 
-  const handleRepoClick = (repo) => {
-    setSelectedRepo(repo);
-  };
+    fetch(apiUrl)
+      .then((response) => response.json())
+      .then((data) => setRepositories(data))
+      .catch((error) => console.log(error));
+  }, []);
+
+  const filteredRepositories = repositories.filter((repository) =>
+    repository.name.toLowerCase().includes(props.searchQuery.toLowerCase())
+  );
 
   return (
     <div className="RepositoryList">
       <h2>Repositories:</h2>
       <ul>
-        {repositories.map((repo) => (
-          <li key={repo.id} onClick={() => handleRepoClick(repo)}>
-            {repo.name} ({repo.language}) - {repo.stargazers_count} stars
+        {filteredRepositories.map((repository) => (
+          <li key={repository.id}>
+            <h3>{repository.name}</h3>
+            <p>Language: {repository.language}</p>
+            <p>Description: {repository.description}</p>
+            <p>Stars: {repository.stargazers_count}</p>
+            <p>Forks: {repository.forks_count}</p>
+            <p>Created At: {repository.created_at}</p>
+            <button>View Commits</button>
           </li>
         ))}
       </ul>
-      {selectedRepo && <CommitList repo={selectedRepo} />}
     </div>
   );
 }
 
 export default RepositoryList;
-
-
-
-

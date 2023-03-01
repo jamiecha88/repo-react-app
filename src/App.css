@@ -1,16 +1,26 @@
 .App {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem;
-    text-align:left;
-  }
-
-  h1 {
-    font-size: 3rem;
-    margin-bottom: 1.5rem;
-  }
-
-  h2 {
-    font-size: 2rem;
-    margin: 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin: 1rem auto;
+}
+
+ul {
+  padding-left: 1rem;
+}
+
+input{
+  padding-left: 0.5%;
+  margin-inline-start: 0.75%;
+}
+
